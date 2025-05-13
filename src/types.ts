@@ -7,7 +7,7 @@ export interface Question {
 }
 
 export interface Topic {
-  id: number;
+  id: string;
   name: string;
 }
 export interface Answer {
