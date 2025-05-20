@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebaseConfig";
+import { useDispatch } from "react-redux";
+import { checkLogin } from "../actions/checkLogin";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const dispatch: any = useDispatch();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password)
       navigate("/");
+      dispatch(checkLogin(true))
 
     } catch (err) {
       setError("Failed to login. Please check your credentials.");

@@ -1,3 +1,5 @@
+import type React from "react";
+
 export interface Question {
   id: number;
   questions: string;
@@ -24,4 +26,12 @@ export interface AnswerData {
 
 export interface ResultItem extends Question {
   answer?: number;
+}
+export interface PrivateRouteProps {
+  children: React.ReactNode;
+}
+
+export interface CheckLoginAction {
+  type: string,
+  status: boolean
 }

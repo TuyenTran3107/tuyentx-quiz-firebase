@@ -9,7 +9,6 @@ import QuizCart from "../components/QuizCart";
 
 const HomePage: React.FC = () => {
   const [topics, setTopics] = useState<Topic[]>([]);
-
   useEffect(() => {
     const fetchTopics = async () => {
       try {

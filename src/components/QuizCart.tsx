@@ -1,5 +1,6 @@
 import type React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -12,6 +13,17 @@ interface QuizCartProps {
 }
 
 const QuizCart: React.FC<QuizCartProps> = ({ topic }) => {
+  const loginState = useSelector((state: any) => state.loginReducer)
+  console.log(loginState)
+  const navigate = useNavigate();
+
+  const handleStart = () => {
+    if (loginState) {
+      navigate(`/quiz/${topic.id}`)
+    } else {
+      navigate("/login")
+    }
+  }
 
   const getTopicStyle = (name: string) => {
     const styles = {
@@ -30,14 +42,37 @@ const QuizCart: React.FC<QuizCartProps> = ({ topic }) => {
     >
       <div className="text-center text-white">
         <h3 className="text-xl font-semibold mb-4">{topic.name}</h3>
-        <Link
+        {/* {loginState ? (
+          <Link
+            key={topic.id}
+            to={`/quiz/${topic.id}`}
+            className="inline-flex items-center px-4 py-2 bg-white/20 
+           rounded-lg text-sm font-medium backdrop-blur-sm
+           hover:bg-white/30 transition-all duration-300">
+            Bắt đầu
+          </Link>
+        ) : (
+          <Navigate to="/login" />
+        )} */}
+
+        <button
           key={topic.id}
-          to={`/quiz/${topic.id}`}
           className="inline-flex items-center px-4 py-2 bg-white/20 
-            rounded-lg text-sm font-medium backdrop-blur-sm
-            hover:bg-white/30 transition-all duration-300">
+           rounded-lg text-sm font-medium backdrop-blur-sm
+           hover:bg-white/30 transition-all duration-300"
+          onClick={handleStart}
+        >
           Bắt đầu
-        </Link>
+
+        </button>
+        {/* <Link
+          key={topic.id}
+          to={loginState ? `/quiz/${topic.id}` : <Navigate to="/login" />}
+          className="inline-flex items-center px-4 py-2 bg-white/20 
+           rounded-lg text-sm font-medium backdrop-blur-sm
+           hover:bg-white/30 transition-all duration-300">
+          Bắt đầu
+        </Link> */}
       </div>
     </div>
   )
